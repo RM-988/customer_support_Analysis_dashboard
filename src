@@ -1,0 +1,23 @@
+"""Create a simple summary from fictional customer-support tickets."""
+import argparse, csv
+from collections import Counter
+
+def main(path):
+    with open(path, newline="", encoding="utf-8") as f:
+        rows=list(csv.DictReader(f))
+    statuses=Counter(r["status"].strip().title() for r in rows)
+    response=[float(r["response_hours"]) for r in rows if r["response_hours"].strip()]
+    resolution=[float(r["resolution_hours"]) for r in rows if r["resolution_hours"].strip()]
+    ratings=[int(r["satisfaction"]) for r in rows if r["satisfaction"].strip()]
+    print("CUSTOMER SUPPORT TICKET SUMMARY")
+    print(f"Total tickets: {len(rows)}")
+    print(f"Open tickets: {statuses.get('Open',0)}")
+    print(f"Closed tickets: {statuses.get('Closed',0)}")
+    print(f"Average first response (hours): {sum(response)/len(response):.2f}" if response else "Average first response: N/A")
+    print(f"Average resolution (hours): {sum(resolution)/len(resolution):.2f}" if resolution else "Average resolution: N/A")
+    print(f"Average satisfaction: {sum(ratings)/len(ratings):.2f}/5" if ratings else "Average satisfaction: N/A")
+
+if __name__ == "__main__":
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--input", default="data/tickets.csv")
+    main(ap.parse_args().input)
