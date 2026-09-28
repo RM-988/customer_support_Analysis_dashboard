@@ -1,0 +1,8 @@
+ticket_id,category,status,response_hours,resolution_hours,satisfaction
+T-001,Login,Closed,1.5,5,5
+T-002,Data Import,Open,2.0,, 
+T-003,Printing,Closed,0.5,3,4
+T-004,Search,Closed,3.0,8,3
+T-005,Permissions,Closed,1.0,2,5
+T-006,Data Import,Open,4.0,,
+T-007,Printing,Closed,2.0,6,4
